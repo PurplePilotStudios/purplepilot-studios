@@ -22,12 +22,14 @@
   const artMarkup = {
     christmas: '<div class="snow-hill"></div><div class="platform platform-one"></div><div class="platform platform-two"></div><div class="platform platform-three"></div><div class="pine pine-one"></div><div class="pine pine-two"></div>',
     arcade: '<div class="arcade-cabinet cab-one"></div><div class="arcade-cabinet cab-two"></div>',
+    power: '<div class="power-glow"></div><div class="power-spark power-spark-one">⚡</div><div class="power-spark power-spark-two">✦</div>',
     future: '<div class="future-star">✳</div>'
   };
 
   const titles = {
     christmas: 'CHRISTMAS<br>OBBY',
     arcade: 'ARCADE',
+    power: 'TYPE YOUR<br>POWER',
     future: 'NEXT UP'
   };
 

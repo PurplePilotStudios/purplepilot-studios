@@ -63,3 +63,14 @@ assets/
   mark.webp         Cropped icon for header
   favicon.png       App icon
 ```
+
+
+## November 23 content update — all three games
+
+The `config.js` file now includes Type Your Power + Weapon, Christmas Obby 2026, and Arcade Experience, with all nine social-specific Roblox campaign links preserved in each game's `campaigns` object. All three Play buttons are enabled.
+
+**Attribution caution:** The Type Your Power + Weapon and Arcade Experience Play buttons temporarily use their TikTok campaign links because their canonical experience URLs and dedicated Website campaign links have not been supplied. This means website clicks on these buttons may be counted under the TikTok campaigns. Replace each `url` with its official Roblox experience URL, or generate a dedicated Website campaign and enter its link as both `url` and `campaigns.website`. Christmas Obby uses its known canonical Roblox experience URL.
+
+Do not publish social profile links or your Roblox community link until verified. Those values remain empty by design.
+
+To update via GitHub website: open `config.js` and select the pencil icon; edit the needed URLs and commit to `main`. Cloudflare Pages will deploy changes automatically.

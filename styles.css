@@ -246,3 +246,10 @@ h1,h2,h3 {font-family:var(--font-display);}
   .section-heading h2{font-size:43px;}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*::before,*::after{animation:none!important;transition:none!important;}}
+
+/* PurplePilot Studios: Type Your Power + Weapon game card */
+.art-power {background:radial-gradient(circle at 58% 40%,#7b54ff91,transparent 47%),linear-gradient(140deg,#251050,#761c99 60%,#2d124d);}
+.art-power::before {content:"";position:absolute;inset:0;background:radial-gradient(circle,#dcaaff8c 1px,transparent 2px) 0 0/27px 27px;opacity:.5;transform:rotate(12deg) scale(1.2);}
+.power-glow {position:absolute;left:37%;top:15%;width:150px;height:150px;border-radius:50%;background:#df80ff45;filter:blur(32px);}
+.power-spark {position:absolute;color:#f0ceff;text-shadow:0 0 20px #d968ff;font-size:68px;transform:rotate(-12deg);}
+.power-spark-one {left:61%;top:18%;}.power-spark-two {left:25%;top:20%;font-size:32px;}
