@@ -35,6 +35,7 @@ export async function onRequestPost({request,env}){
     input=JSON.parse(new TextDecoder().decode(data));
   }catch{return json({ok:false},400);}
   if(!input || !gameIds.has(input.game) || !categories.has(input.category) || typeof input.message!=='string' || typeof input.token!=='string' || !input.token || input.token.length>2048)return json({ok:false},400);
+  if(!testing && (!Number.isInteger(input.age) || input.age<13 || input.age>130))return json({ok:false},403);
   const message=input.message.trim();
   if(testing && (input.game!=='studio' || input.category!=='feedback' || message!=='PurplePilot setup test: synthetic report.'))return json({ok:false},400);
   if(message.length<10 || message.length>1000 || /[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(message) || /https?:\/\//i.test(message))return json({ok:false},400);
