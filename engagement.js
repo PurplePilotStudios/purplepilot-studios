@@ -63,8 +63,22 @@
   }
   renderClips();
   const form=byId('feedback-form'), status=byId('feedback-status'), opener=byId('feedback-open'), submit=byId('feedback-submit'), gameSelect=byId('feedback-game');
+  const ageForm=byId('feedback-age-form'), ageInput=byId('feedback-age'), ageContinue=byId('feedback-age-continue');
   for (const [id,g] of games) {const option=make('option','',g.name);option.value=id;gameSelect.append(option);}
   let token='', widget=null, starting=false;
+  let siteKey='', eligibleAge=null, ageDenied=false;
+  const ageDenialKey='purplepilot.feedback-age-denied';
+  try {
+    ageDenied=window.sessionStorage.getItem(ageDenialKey)==='1';
+  } catch {
+    // The check still works when browser storage is unavailable.
+  }
+  const showAgeDenial=()=>{
+    ageForm.hidden=true;
+    opener.hidden=true;
+    status.textContent='Feedback is unavailable for this visit.';
+    status.focus();
+  };
   const loadTurnstile=()=>new Promise((resolve,reject)=>{
     if(window.turnstile){resolve();return;}
     const script=make('script'); script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
@@ -73,25 +87,69 @@
   });
   const setToken=value=>{token=value;submit.disabled=!token;};
   const openForm=async()=>{
-    if(starting || !form.hidden)return;
+    if(starting || !ageForm.hidden || !form.hidden)return;
+    if(ageDenied){
+      showAgeDenial();
+      return;
+    }
     starting=true;opener.disabled=true;status.textContent='Checking feedback availability…';
     try {
       const response=await fetch('/api/feedback',{cache:'no-store'});
       const data=await response.json();
       if(!response.ok||!data.enabled||!data.siteKey)throw Error('not configured');
-      await loadTurnstile();
-      form.hidden=false;
-      widget=window.turnstile.render('#feedback-challenge',{sitekey:data.siteKey,action:'feedback',callback:setToken,'expired-callback':()=>setToken(''),'error-callback':()=>{setToken('');status.textContent='Verification could not complete. Try again.';}});
-      status.textContent=''; opener.hidden=true;
-    }catch{form.hidden=true;status.textContent='Online feedback is not open yet. Please check back later.';}
+      siteKey=data.siteKey;
+      ageForm.hidden=false;
+      opener.hidden=true;
+      status.textContent='';
+      ageInput.focus();
+    }catch{status.textContent='Online feedback is not open yet. Please check back later.';}
     finally{starting=false;opener.disabled=false;}
   };
   opener.addEventListener('click',openForm);
+  ageForm.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(ageForm.hidden || starting || ageDenied)return;
+    const age=ageInput.valueAsNumber;
+    if(!Number.isInteger(age) || age<0 || age>130){
+      status.textContent='Enter your age in whole years.';
+      return;
+    }
+    if(age<13){
+      ageDenied=true;
+      ageInput.value='';
+      try {
+        window.sessionStorage.setItem(ageDenialKey,'1');
+      } catch {
+        // The current page still keeps feedback closed for this answer.
+      }
+      showAgeDenial();
+      return;
+    }
+    starting=true;
+    ageContinue.disabled=true;
+    status.textContent='Opening feedback…';
+    try {
+      await loadTurnstile();
+      form.hidden=false;
+      widget=window.turnstile.render('#feedback-challenge',{sitekey:siteKey,action:'feedback',callback:setToken,'expired-callback':()=>setToken(''),'error-callback':()=>{setToken('');status.textContent='Verification could not complete. Try again.';}});
+      eligibleAge=age;
+      ageInput.value='';
+      ageForm.hidden=true;
+      status.textContent='';
+      gameSelect.focus();
+    } catch {
+      form.hidden=true;
+      status.textContent='Verification could not load. Try again.';
+    } finally {
+      starting=false;
+      ageContinue.disabled=false;
+    }
+  });
   form.addEventListener('submit',async event=>{
-    event.preventDefault(); if(!token || submit.disabled)return;
+    event.preventDefault(); if(eligibleAge===null || !token || submit.disabled)return;
     submit.disabled=true;status.textContent='Sending feedback…';
     try{
-      const payload={game:gameSelect.value,category:byId('feedback-kind').value,message:byId('feedback-message').value.trim(),token};
+      const payload={game:gameSelect.value,category:byId('feedback-kind').value,message:byId('feedback-message').value.trim(),age:eligibleAge,token};
       const response=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       const result=await response.json();
       if(!response.ok||!result.ok)throw Error('submission failed');

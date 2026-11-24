@@ -263,7 +263,7 @@ h1,h2,h3 {font-family:var(--font-display);}
 .engage-panel p,.engage-panel small{color:var(--soft);line-height:1.65}
 .engage-panel .button{border:0;cursor:pointer;margin-top:12px}
 .engage-panel button:disabled{opacity:.55;cursor:not-allowed}
-.engage-panel button:focus-visible,.engage-link:focus-visible,.clip-play:focus-visible,.clip-filter:focus-visible,.engage-panel select:focus-visible,.engage-panel textarea:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+.engage-panel button:focus-visible,.engage-link:focus-visible,.clip-play:focus-visible,.clip-filter:focus-visible,.engage-panel input:focus-visible,.engage-panel select:focus-visible,.engage-panel textarea:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
 .game-engagement{display:flex;gap:14px;flex-wrap:wrap;margin-top:15px}
 .engage-link{border:0;background:none;color:#d7b2ff;font:inherit;font-size:13px;padding:8px 0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
 .engage-filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}
@@ -278,11 +278,12 @@ h1,h2,h3 {font-family:var(--font-display);}
 .clip-details{padding:16px;overflow-wrap:anywhere}
 .clip-details h3{font:700 19px var(--font-display);margin:4px 0 12px}
 .clip-details small{color:var(--soft)}
-#feedback-form{display:grid;gap:12px;max-width:650px;margin-top:18px}
-#feedback-form label{font-weight:700}
-#feedback-form select,#feedback-form textarea{width:100%;background:#10091b;color:var(--ink);border:1px solid #6c4c80;border-radius:8px;padding:12px;font:inherit}
+#feedback-age-form,#feedback-form{display:grid;gap:12px;max-width:650px;margin-top:18px}
+#feedback-age-form label,#feedback-form label{font-weight:700}
+#feedback-age,#feedback-form select,#feedback-form textarea{width:100%;background:#10091b;color:var(--ink);border:1px solid #6c4c80;border-radius:8px;padding:12px;font:inherit}
+#feedback-age{max-width:10rem}
 #feedback-form textarea{resize:vertical}
-#feedback-form button{justify-self:start}
+#feedback-age-form button,#feedback-form button{justify-self:start}
 #feedback-status:empty{display:none}
 @media(max-width:900px){.clip-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.engage-section{padding-top:64px}.feedback-section{padding-top:0;padding-bottom:55px}.clip-grid{grid-template-columns:1fr}.clip-frame.short{max-height:440px}.engage-panel .button{width:100%;justify-content:center}}

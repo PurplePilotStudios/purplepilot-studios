@@ -106,14 +106,20 @@
       <div class="section-topline"><span class="mini-label">PLAYER VOICE</span><span class="right-note">HELP US IMPROVE ↘</span></div>
       <div class="section-heading"><div><h2 id="feedback-title">YOUR <span>IDEAS.</span></h2><p>Found a bug? Have a new game idea? Tell us what you think.</p></div></div>
       <div class="engage-panel">
-        <p>Feedback is private, not a public comment. Do not include names, ages, Roblox usernames, contact details, passwords or other personal information about yourself or anyone else. If you are under 13, do not submit feedback. The studio uses the selected game, category, message, submission time and review status to improve its games. Cloudflare hosts the form and processes technical request data for security, including through Turnstile verification.</p>
+        <p>Feedback is private, not a public comment. Do not include names, ages, Roblox usernames, contact details, passwords or other personal information about yourself or anyone else. The studio uses the selected game, category, message, submission time and review status to improve its games. Cloudflare hosts the form and processes technical request data for security, including through Turnstile verification.</p>
         <button type="button" class="button button-primary" id="feedback-open">Open feedback form ↗</button>
-        <p id="feedback-status" role="status" aria-live="polite"></p>
+        <p id="feedback-status" role="status" aria-live="polite" tabindex="-1"></p>
+        <form id="feedback-age-form" hidden>
+          <label for="feedback-age">How old are you?</label>
+          <small id="feedback-age-help">Enter your age in years. We use your answer only to check if you can send feedback.</small>
+          <input id="feedback-age" type="number" min="0" max="130" step="1" inputmode="numeric" autocomplete="off" aria-describedby="feedback-age-help" required />
+          <button type="submit" class="button button-primary" id="feedback-age-continue">Continue</button>
+        </form>
         <form id="feedback-form" hidden>
           <label for="feedback-game">Game</label><select id="feedback-game" name="game"><option value="studio">Studio / website / new game idea</option></select>
           <label for="feedback-kind">Feedback type</label><select id="feedback-kind" name="category" required><option value="idea">Idea or feature request</option><option value="bug">Bug report</option><option value="feedback">General feedback</option></select>
           <label for="feedback-message">What should we know?</label><textarea id="feedback-message" name="message" rows="5" minlength="10" maxlength="1000" required placeholder="For a bug, describe what happened and how to reproduce it. No personal information."></textarea>
-          <small>10–1,000 characters. Messages are stored privately for studio review, not published. Please do not submit if you are under 13.</small>
+          <small>10–1,000 characters. Messages are stored privately for studio review, not published.</small>
           <div id="feedback-challenge"></div>
           <button type="submit" class="button button-primary" id="feedback-submit" disabled>Send feedback</button>
         </form>
