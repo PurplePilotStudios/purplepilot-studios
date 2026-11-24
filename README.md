@@ -93,3 +93,15 @@ The app stores only game ID, category, message, generated identifier, timestamp 
 Current site uses Git integration. Pages Functions are built by Cloudflare; no new paid service is required for normal free-tier usage, subject to quotas. Use the dashboard to check deployment and test the complete feedback flow before enabling it publicly.
 
 Official docs: https://developers.cloudflare.com/pages/functions/bindings/ and https://developers.cloudflare.com/turnstile/get-started/server-side-validation/.
+
+## Restricted production setup test (keep FEEDBACK_ENABLED=false)
+
+Add a separate cryptographically random secret of at least 32 characters as `FEEDBACK_TEST_KEY` under production Variables and Secrets, then redeploy. Do not use or share the Turnstile secret. Visit https://purplepilotstudios.pages.dev/feedback-test.html and enter the setup key. The test verifies the existing D1 table, requires a real Turnstile challenge, and writes and reads back a single fixed synthetic row. Public feedback remains off. The setup key is sent only in an HTTPS request header, not in a URL or stored by the page. Do not enable this setup mode with a weak key.
+
+In D1 Console run:
+`SELECT * FROM feedback WHERE id='purplepilot-setup-test';`
+After verifying, run:
+`DELETE FROM feedback WHERE id='purplepilot-setup-test';`
+Remove the FEEDBACK_TEST_KEY secret and redeploy. The test mode also refuses access whenever FEEDBACK_ENABLED is not exactly false.
+
+The public launch remains separate: assess the child audience, applicable privacy obligations, appropriate safeguards, retention, moderation and notice before enabling. A warning is not age verification or a substitute for legal review. This setup test does not verify regulatory compliance.
