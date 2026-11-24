@@ -9,7 +9,7 @@ window.PURPLEPILOT_CONFIG = {
     tagline: "Small worlds. Big fun.",
     description: "Original Roblox experiences crafted with creativity and AI-assisted development.",
     contactEmail: "", // Add your real studio email if you want it publicly visible.
-    communityUrl: "", // Paste the real Roblox community URL here.
+    communityUrl: "https://www.roblox.com/share/g/487500166", // Official PurplePilot Studios Roblox community.
   },
   socials: [
     // TikTok stays hidden until its account is rebranded and the handle is confirmed.
