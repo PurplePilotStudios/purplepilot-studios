@@ -12,9 +12,9 @@ window.PURPLEPILOT_CONFIG = {
     communityUrl: "", // Paste the real Roblox community URL here.
   },
   socials: [
-    { name: "TikTok", handle: "@purplepilotstudios", url: "https://www.tiktok.com/@purplepilotstudios" },
-    // Instagram stays hidden until the Roblox Clips account is renamed and verified.
-    { name: "Instagram", handle: "@purplepilotstudios", url: "", plannedUrl: "https://www.instagram.com/purplepilotstudios/" },
+    // TikTok stays hidden until its account is rebranded and the handle is confirmed.
+    { name: "TikTok", handle: "@purplepilotstudios", url: "", plannedUrl: "https://www.tiktok.com/@purplepilotstudios" },
+    { name: "Instagram", handle: "@purplepilotstudios", url: "https://www.instagram.com/purplepilotstudios/" },
     { name: "YouTube", handle: "@PurplePilotStudios", url: "https://www.youtube.com/@PurplePilotStudios" },
   ],
   // Platform-specific Roblox campaigns. These are for posting on each platform.
