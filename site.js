@@ -36,6 +36,7 @@
   const grid = document.getElementById('game-grid');
   cfg.games.forEach(game => {
     const card = element('article', 'game-card');
+    card.id = 'game-' + game.id;
     const artType = Object.hasOwn(artMarkup, game.art) ? game.art : 'future';
     const art = element('div', `card-art art-${artType}`);
     // Only fixed, authored HTML fragments are inserted; config fields use textContent.
@@ -70,6 +71,13 @@
       action.appendChild(element('span', 'arrow', '⌛'));
     }
     body.appendChild(action);
+    const controls = element('div', 'game-engagement');
+    const share = element('button', 'engage-link', 'Share game');
+    share.type = 'button'; share.dataset.shareGame = game.id;
+    const feedback = element('button', 'engage-link', 'Give feedback');
+    feedback.type = 'button'; feedback.dataset.feedbackGame = game.id;
+    controls.append(share, feedback);
+    body.appendChild(controls);
     card.append(art, body);
     grid.appendChild(card);
   });

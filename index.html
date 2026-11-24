@@ -8,6 +8,8 @@
   <meta property="og:title" content="PurplePilot Studios | Play Something New" />
   <meta property="og:description" content="Original Roblox experiences. Small worlds. Big fun." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://purplepilotstudios.pages.dev/" />
+  <meta property="og:image" content="https://purplepilotstudios.pages.dev/assets/studio-logo.webp" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,6 +19,7 @@
   <title>PurplePilot Studios — Play Something New</title>
   <script defer src="config.js"></script>
   <script defer src="site.js"></script>
+  <script defer src="engagement.js"></script>
 </head>
 <body>
   <div class="site-bg" aria-hidden="true"></div>
@@ -28,7 +31,8 @@
       </a>
       <div class="nav-links">
         <a href="#games">Games</a>
-        <a href="#updates">Updates</a>
+        <a href="#clips">Clips</a>
+        <a href="#feedback">Feedback</a>
         <a href="#studio">Our studio</a>
       </div>
       <a class="nav-cta" href="#games">Explore games <span aria-hidden="true">↗</span></a>
@@ -65,6 +69,15 @@
       <div id="game-grid" class="game-grid" aria-live="polite"></div>
     </section>
 
+    <section class="engage-section shell" id="clips" aria-labelledby="clips-title">
+      <div class="section-topline"><span class="mini-label">WATCH / GAMEPLAY</span><span class="right-note">SEE THE ACTION ↘</span></div>
+      <div class="section-heading"><div><h2 id="clips-title">IN <span>ACTION.</span></h2><p>Trailers, gameplay and highlights from PurplePilot Studios.</p></div></div>
+      <div id="clip-filters" class="engage-filters" aria-label="Filter videos by game" hidden></div>
+      <div id="clip-grid" class="clip-grid"></div>
+      <div id="clip-empty" class="engage-panel"><h3>More gameplay clips coming soon.</h3><p>Watch our latest videos on YouTube while we build the gallery.</p><a class="text-link" href="https://www.youtube.com/@PurplePilotStudios" target="_blank" rel="noopener noreferrer">Visit our YouTube channel ↗</a></div>
+      <noscript>Enable JavaScript to browse the video gallery.</noscript>
+    </section>
+
     <section class="update-section" id="updates" aria-labelledby="update-title">
       <div class="shell update-layout">
         <div class="update-visual" aria-hidden="true">
@@ -86,6 +99,25 @@
       <div class="about-grid">
         <div class="about-copy"><h2 id="about-title">IDEAS ARE<br/><span>MEANT TO</span><br/>BE PLAYED.</h2></div>
         <div class="about-details"><p>We're <strong>PurplePilot Studios</strong> — an independent Roblox studio experimenting with new ideas, fun mechanics, and AI-assisted creation.</p><p>One home for our games, our latest releases, and everything we're building next.</p><div class="pill-row"><span>ROBLOX</span><span>CREATIVITY</span><span>AI-ASSISTED</span></div></div>
+      </div>
+    </section>
+
+    <section class="engage-section feedback-section shell" id="feedback" aria-labelledby="feedback-title">
+      <div class="section-topline"><span class="mini-label">PLAYER VOICE</span><span class="right-note">HELP US IMPROVE ↘</span></div>
+      <div class="section-heading"><div><h2 id="feedback-title">YOUR <span>IDEAS.</span></h2><p>Found a bug? Have a new game idea? Tell us what you think.</p></div></div>
+      <div class="engage-panel">
+        <p>Feedback is private, not a public comment. Please do not include your name, age, Roblox username, email, passwords or other personal information. Do not include personal details about other players.</p>
+        <button type="button" class="button button-primary" id="feedback-open">Open feedback form ↗</button>
+        <p id="feedback-status" role="status" aria-live="polite"></p>
+        <form id="feedback-form" hidden>
+          <label for="feedback-game">Game</label><select id="feedback-game" name="game"><option value="studio">Studio / website / new game idea</option></select>
+          <label for="feedback-kind">Feedback type</label><select id="feedback-kind" name="category" required><option value="idea">Idea or feature request</option><option value="bug">Bug report</option><option value="feedback">General feedback</option></select>
+          <label for="feedback-message">What should we know?</label><textarea id="feedback-message" name="message" rows="5" minlength="10" maxlength="1000" required placeholder="For a bug, describe what happened and how to reproduce it. No personal information."></textarea>
+          <small>10–1,000 characters. Messages are stored privately for studio review, not published. Please do not submit if you are under 13.</small>
+          <div id="feedback-challenge"></div>
+          <button type="submit" class="button button-primary" id="feedback-submit" disabled>Send feedback</button>
+        </form>
+        <noscript>Feedback requires JavaScript.</noscript>
       </div>
     </section>
 

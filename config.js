@@ -75,6 +75,9 @@ window.PURPLEPILOT_CONFIG = {
       featured: false,
     },
   ],
+  // Curated clips: { gameId: "christmas-obby", title: "Gameplay", url: "https://www.youtube.com/shorts/VIDEO_ID" }
+  // Add only actual published clips; YouTube URLs (including Shorts) are supported.
+  clips: [],
   announcement: {
     eyebrow: "STUDIO UPDATE",
     title: "Three ways to play. More on the way.",

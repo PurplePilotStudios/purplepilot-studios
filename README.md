@@ -74,3 +74,22 @@ The `config.js` file now includes Type Your Power + Weapon, Christmas Obby 2026,
 Do not publish social profile links or your Roblox community link until verified. Those values remain empty by design.
 
 To update via GitHub website: open `config.js` and select the pencil icon; edit the needed URLs and commit to `main`. Cloudflare Pages will deploy changes automatically.
+
+## V3 — videos and feedback
+
+Add actual YouTube videos or Shorts to `config.js` under `clips`, with fields `gameId`, `title`, and `url`. Game IDs must match the catalog. Clips load YouTube only after the viewer clicks, and an external watch link is always available. Empty gallery links to the studio channel. No invented clips are displayed.
+
+Feedback is disabled unless all four production settings exist. The private D1 inbox is intentionally not exposed by a public read API. Before enabling, review applicable child-privacy requirements for a Roblox audience; do not collect personal details from children, publish submissions, or treat the user warning as age verification. Establish a retention/deletion and moderation policy. Keep the feature disabled if those requirements are not met.
+
+1. In Cloudflare, create a D1 database (e.g. purplepilot-feedback), use its Console to run the SQL in `feedback-schema.sql`.
+2. Create a Turnstile widget for purplepilotstudios.pages.dev (Managed mode).
+3. In Workers & Pages > purplepilotstudios > Settings > Bindings, bind the database as FEEDBACK_DB. In Variables and Secrets add TURNSTILE_SITE_KEY (text), TURNSTILE_SECRET_KEY (secret), and FEEDBACK_ENABLED (text, initially false). Never commit the secret.
+4. After privacy review, change FEEDBACK_ENABLED to true and redeploy. Confirm the form appears, submit a test report, and check the private D1 Console with SELECT * FROM feedback ORDER BY created_at DESC LIMIT 50;. Delete the test entry. If verification or insert fails, no success is displayed.
+5. For periodic deletion, run DELETE FROM feedback WHERE created_at < datetime('now','-90 days'); or a shorter retention interval according to your policy. This is manual, not automatic.
+6. To allow a newly registered game in feedback, update the server-side gameIds allowlist in functions/api/feedback.js as well as config.js.
+
+The app stores only game ID, category, message, generated identifier, timestamp and review status. It does not intentionally persist IPs, emails or Roblox usernames. Cloudflare/Turnstile process technical request data; YouTube embeds are third-party content. No user feedback is sent to GitHub. Treat incoming messages as untrusted data if imported into Purple Bot.
+
+Current site uses Git integration. Pages Functions are built by Cloudflare; no new paid service is required for normal free-tier usage, subject to quotas. Use the dashboard to check deployment and test the complete feedback flow before enabling it publicly.
+
+Official docs: https://developers.cloudflare.com/pages/functions/bindings/ and https://developers.cloudflare.com/turnstile/get-started/server-side-validation/.
