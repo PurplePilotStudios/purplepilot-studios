@@ -80,7 +80,7 @@ window.PURPLEPILOT_CONFIG = {
   clips: [],
   announcement: {
     eyebrow: "STUDIO UPDATE",
-    title: "Three ways to play. More on the way.",
-    body: "Play Type Your Power + Weapon, Christmas Obby 2026, and Arcade Experience. New experiences are on the way.",
+    title: "What's new.",
+    body: "All three Roblox games are now playable from the hub.",
   },
 };

@@ -139,7 +139,12 @@ h1,h2,h3 {font-family:var(--font-display);}
 .update-copy h2 {font-size:clamp(48px,5vw,70px);margin:22px 0 20px;}
 .update-copy h2 span {color:#ca8aff;}
 .update-copy p {color:#c0acdb;line-height:1.72;font-size:15px;max-width:480px;}
-.update-actions {margin-top:25px;}
+.update-date {display:block;color:#e6bfff;font-size:13px;font-weight:700;margin-bottom:8px;}
+.update-list {list-style:none;margin:20px 0 0;padding:0;}
+.update-list li {border-top:1px solid #ffffff26;padding:12px 0;}
+.update-list a {color:#f4defd;font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:4px;}
+.update-list a:hover,.update-list a:focus-visible {color:#c9ff88;}
+.update-list p {margin:4px 0 0;}
 .text-link {display:inline-flex;gap:40px;align-items:center;color:#efdeff;font-size:13px;font-weight:800;padding-bottom:7px;border-bottom:1px solid #a873d2;}
 .text-link:hover {color:#c9ff88;}
 .about-section {padding-block:115px;}
