@@ -88,7 +88,13 @@ window.PURPLEPILOT_CONFIG = {
   ],
   // Curated clips: { gameId: "christmas-obby", title: "Gameplay", url: "https://www.youtube.com/shorts/VIDEO_ID" }
   // Add only actual published clips; YouTube URLs (including Shorts) are supported.
-  clips: [],
+  clips: [
+    {
+      gameId: "type-your-power-weapon",
+      title: "Type It. Hit Go. — Official Gameplay Trailer",
+      url: "https://www.youtube.com/shorts/W17R1oaTmwU",
+    },
+  ],
   announcement: {
     eyebrow: "STUDIO UPDATE",
     title: "Four ways to play. More on the way.",
