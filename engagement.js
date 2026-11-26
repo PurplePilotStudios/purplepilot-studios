@@ -24,7 +24,14 @@
       return /^[A-Za-z0-9_-]{11}$/.test(id || '') ? { id, short, url: 'https://www.youtube.com/watch?v=' + id } : null;
     } catch { return null; }
   };
-  const clips = (Array.isArray(cfg.clips) ? cfg.clips : []).map(c => ({...c, video:videoInfo(c.url)})).filter(c => c.video && games.has(c.gameId) && typeof c.title === 'string');
+  // Local MP4s are restricted to the site's own assets directory.
+  const clipInfo = clip => {
+    if (typeof clip.file === 'string' && /^assets\/[a-zA-Z0-9_-]+\.mp4$/.test(clip.file)) {
+      return { native: true, short: clip.vertical === true, url: clip.file };
+    }
+    return videoInfo(clip.url);
+  };
+  const clips = (Array.isArray(cfg.clips) ? cfg.clips : []).map(c => ({...c, video:clipInfo(c)})).filter(c => c.video && games.has(c.gameId) && typeof c.title === 'string');
   const filters = byId('clip-filters'), grid = byId('clip-grid'), empty = byId('clip-empty');
   let selected = 'all';
   const renderClips = () => {
@@ -32,23 +39,40 @@
     for (const clip of clips.filter(c => selected === 'all' || c.gameId === selected)) {
       const card = make('article','clip-card');
       const frame = make('div','clip-frame' + (clip.video.short ? ' short' : ''));
-      const play = make('button','clip-play','▶ Load video');
-      play.type = 'button';
-      play.setAttribute('aria-label','Load YouTube video: '+clip.title);
-      play.addEventListener('click', () => {
-        const iframe = make('iframe');
-        iframe.title = clip.title;
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + clip.video.id + '?autoplay=1&playsinline=1';
-        iframe.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen; autoplay';
-        iframe.allowFullscreen = true;
-        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-        frame.replaceChildren(iframe);
-      });
-      frame.append(play);
+      if (clip.video.native) {
+        const video = make('video');
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = 'none';
+        video.setAttribute('aria-label', clip.title);
+        video.style.cssText = 'width:100%;height:100%;max-height:inherit;object-fit:contain;background:#080510;grid-area:1/1;';
+        video.addEventListener('error', () => {
+          frame.replaceChildren(make('p','clip-play','Video temporarily unavailable. Please check back shortly.'));
+        });
+        video.src = clip.video.url;
+        frame.append(video);
+      } else {
+        const play = make('button','clip-play','▶ Load video');
+        play.type = 'button';
+        play.setAttribute('aria-label','Load YouTube video: '+clip.title);
+        play.addEventListener('click', () => {
+          const iframe = make('iframe');
+          iframe.title = clip.title;
+          iframe.src = 'https://www.youtube-nocookie.com/embed/' + clip.video.id + '?autoplay=1&playsinline=1';
+          iframe.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen; autoplay';
+          iframe.allowFullscreen = true;
+          iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+          frame.replaceChildren(iframe);
+        });
+        frame.append(play);
+      }
       const details = make('div','clip-details');
-      const link = make('a','text-link','Watch on YouTube ↗');
-      link.href = clip.video.url; link.target = '_blank'; link.rel = 'noopener noreferrer';
-      details.append(make('small','',games.get(clip.gameId).name),make('h3','',clip.title),link);
+      details.append(make('small','',games.get(clip.gameId).name),make('h3','',clip.title));
+      if (!clip.video.native) {
+        const link = make('a','text-link','Watch on YouTube ↗');
+        link.href = clip.video.url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+        details.append(link);
+      }
       card.append(frame,details); grid.append(card);
     }
     empty.hidden = clips.length > 0;
