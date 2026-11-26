@@ -74,13 +74,24 @@ window.PURPLEPILOT_CONFIG = {
       art: "arcade",
       featured: false,
     },
+    {
+      id: "community-game-0tcsw",
+      name: "Community Game",
+      eyebrow: "FRIENDS OF THE STUDIO",
+      type: "Roblox game",
+      description: "A Roblox experience from a friend of PurplePilot Studios.",
+      status: "playable",
+      url: "https://www.roblox.com/join/0tcsw",
+      art: "future",
+      featured: false,
+    },
   ],
   // Curated clips: { gameId: "christmas-obby", title: "Gameplay", url: "https://www.youtube.com/shorts/VIDEO_ID" }
   // Add only actual published clips; YouTube URLs (including Shorts) are supported.
   clips: [],
   announcement: {
     eyebrow: "STUDIO UPDATE",
-    title: "Three ways to play. More on the way.",
-    body: "Play Type Your Power + Weapon, Christmas Obby 2026, and Arcade Experience. New experiences are on the way.",
+    title: "Four ways to play. More on the way.",
+    body: "Play Type Your Power + Weapon, Christmas Obby 2026, Arcade Experience, and a featured community game. New experiences are on the way.",
   },
 };
