@@ -13,7 +13,7 @@ async function testAuthorized(request,env){
   for(let i=0;i<aa.length;i++)diff|=aa[i]^bb[i];
   return diff===0;
 }
-const gameIds=new Set(['studio','type-your-power-weapon','christmas-obby','arcade-experience']);
+const gameIds=new Set(['studio','type-your-power-weapon','christmas-obby','arcade-experience','community-game-0tcsw']);
 const categories=new Set(['idea','bug','feedback']);
 export async function onRequestGet({request,env}){
   const testing=await testAuthorized(request,env);
